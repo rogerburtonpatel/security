@@ -136,26 +136,30 @@ def packetcallback(packet):
     except Exception as e:
         pass
 
-## Parses arguments. -i for network interface, 
-## -r for pcap file, 
-## -h for help. 
-parser = argparse.ArgumentParser(description='A network sniffer that' 
-                                     ' identifies basic vulnerabilities')
-parser.add_argument('-i', dest='interface', help='Network interface'
-                    + 'to sniff on', default='eth0')
-parser.add_argument('-r', dest='pcapfile', help='A PCAP file to read')
-args = parser.parse_args()
-if args.pcapfile:
-    try:
-        print("Reading" 
-             " PCAP file %(filename)s..." % {"filename" : args.pcapfile})
-        sniff(offline=args.pcapfile, prn=packetcallback)        
-    except:
-        print("Sorry, something went wrong reading"
-            " PCAP file %(filename)s!" % {"filename" : args.pcapfile})
-else:
-    print("Sniffing on %(interface)s... " % {"interface" : args.interface})
-    try:
-        sniff(iface=args.interface, prn=packetcallback)
-    except:
-        print("Sorry, can\'t read network traffic. Are you root?")
+def main():
+    ## Parses arguments. -i for network interface, 
+    ## -r for pcap file, 
+    ## -h for help. 
+    parser = argparse.ArgumentParser(description='A network sniffer that' 
+                                        ' identifies basic vulnerabilities')
+    parser.add_argument('-i', dest='interface', help='Network interface'
+                        + 'to sniff on', default='eth0')
+    parser.add_argument('-r', dest='pcapfile', help='A PCAP file to read')
+    args = parser.parse_args()
+    if args.pcapfile:
+        try:
+            print("Reading" 
+                " PCAP file %(filename)s..." % {"filename" : args.pcapfile})
+            sniff(offline=args.pcapfile, prn=packetcallback)        
+        except:
+            print("Sorry, something went wrong reading"
+                " PCAP file %(filename)s!" % {"filename" : args.pcapfile})
+    else:
+        print("Sniffing on %(interface)s... " % {"interface" : args.interface})
+        try:
+            sniff(iface=args.interface, prn=packetcallback)
+        except:
+            print("Sorry, can\'t read network traffic. Are you root?")
+
+if __name__ == '__main__':
+    main()
