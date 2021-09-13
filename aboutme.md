@@ -13,4 +13,4 @@ Secuirty tools I'm familiar with:
 - sqlmap 
 - steghide // stegseek 
 - apktool (for Malware analysis)
-- All tools (written by me) in this repository. 
+- All tools in this repository (written by me). 
